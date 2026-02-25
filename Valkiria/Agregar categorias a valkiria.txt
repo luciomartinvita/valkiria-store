@@ -1,0 +1,103 @@
+¿Cómo usar este software?
+Modo Local (Inmediato): Abre el archivo .html en tu computadora. Puedes generar el SKU e imprimir la etiqueta en el momento.
+
+
+
+Crea tu Planilla de Google: Crea una hoja nueva y ponle estos encabezados en la primera fila: SKU, Categoría, Subcategoría, Color, Talle, Stock, Precio, Fecha.
+
+Abre el Editor de Scripts: Dentro de la planilla, ve al menú Extensiones > Apps Script.
+
+Pega el código de conexión: Borra todo lo que aparezca y pega este código:
+
+function doPost(e) {
+  try {
+    // Selecciona la hoja activa de tu archivo de Google Sheets
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Procesa los datos enviados desde la aplicación web
+    var data = JSON.parse(e.postData.contents);
+    
+    // Agrega una nueva fila con los datos recibidos en el orden correcto
+    sheet.appendRow([
+      data.sku, 
+      data.categoria, 
+      data.subcategoria, 
+      data.color, 
+      data.talle, 
+      data.stock, 
+      data.precio, 
+      data.fecha
+    ]);
+    
+    // Retorna una respuesta de éxito legible para el navegador
+    return ContentService.createTextOutput("Éxito")
+      .setMimeType(ContentService.MimeType.TEXT);
+      
+  } catch (error) {
+    // Si ocurre un error (ej: la hoja no existe o datos malformados), lo informa
+    return ContentService.createTextOutput("Error: " + error.toString())
+      .setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
+
+
+Lógica del SKU generada:
+Importados: IMP-[COL]-[TALLE]-[ID] (Ej: IMP-ROJ-M-4521)
+
+Quince Años: Q15-[PIEZAS]-[COL]-[TALLE]-[ID] (Ej: Q15-2P-AZU-S-8823)
+
+
+2. ¿Cómo agregar más categorías en el futuro?
+Si decides agregar, por ejemplo, "Accesorios" o "Egresos", solo tienes que hacer dos cosas:
+
+En el código HTML: Agregar la opción en el menú desplegable (<select id="cat">).
+
+En el SKU: El sistema usará las primeras 3 letras (como ACC o EGR) automáticamente según lo programemos.
+
+Para que funcione correctamente y tus vestidos se guarden solos en el Excel, debes seguir estos pasos (solo se hace una vez.
+
+-Sobre el CSV para WooCommerce: Desde esta aplicación puedes descargar un CSV básico con los datos que vas cargando. Sin embargo, para una gestión de stock masiva, lo ideal es entrar a tu Google Sheets, ir a Archivo > Descargar > Valores separados por comas (.csv). Ese archivo es el que subirás a WooCommerce.
+
+Aquí tienes el código actualizado:
+
+Para configurarlo:
+
+Busca la línea que dice const GOOGLE_SCRIPT_URL = "URL_DE_GOOGLE_SHEETS_AQUI";.
+
+Borra el texto URL_DE_GOOGLE_SHEETS_AQUI y pega tu dirección ahí.
+
+Al terminar el día, si presionas el botón "Exportar CSV", se descargará un archivo con todo lo que cargaste en esa sesión, listo para que WooCommerce lo reconozca.
+
+
+
+---Sin embargo, hay tres cosas importantes que sí debes tener en cuenta para que el script funcione correctamente:
+
+La Hoja Activa: El script trabaja sobre la pestaña (hoja) que esté activa o en primer lugar. Si tienes varias pestañas (ej: "Ventas", "Stock", "Configuración"), asegúrate de que la hoja donde se guardan los vestidos sea la principal.
+
+El Orden de las Columnas: El script espera que los datos estén organizados así:
+
+Columna A: SKU
+
+Columna B: Categoría
+
+Columna C: Subcategoría (Piezas)
+
+Columna D: Color
+
+Columna E: Talle
+
+Columna F: Stock (Aquí es donde el script resta 1 cuando hay una venta)
+
+Columna G: Precio
+
+Columna H: Fecha
+
+Encabezados: Te recomiendo que la primera fila tenga los títulos (SKU, Categoría, etc.). El script empezará a buscar y escribir a partir de la fila 2 automáticamente.
+
+Resumen: El nombre del archivo es libre, lo que importa es que el ID del script (que obtienes al "Implementar") esté pegado correctamente en tu código HTML.
+
+
+
+
+
