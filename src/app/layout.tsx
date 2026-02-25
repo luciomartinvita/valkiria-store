@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Valkiria Luxury | Vestidos de Gala",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="antialiased bg-black min-h-screen">
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
