@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -14,7 +15,13 @@ export default function Home() {
             {[1, 2, 3].map((item) => (
               <div key={item} className="group cursor-pointer">
                 <div className="relative aspect-[3/4] overflow-hidden border border-gold/20">
-                  <div className="absolute inset-0 bg-neutral-900 animate-pulse" />
+                  <Image
+                    src="/assets/portada-2.png"
+                    alt={`Vestido ${item}`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                   <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black to-transparent transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
                     <p className="text-gold tracking-widest text-sm mb-1 uppercase">Vestido de Gala</p>
                     <h3 className="text-white text-xl">Colección Luxury {item}</h3>

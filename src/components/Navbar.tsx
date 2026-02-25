@@ -8,12 +8,12 @@ const Navbar = () => {
     return (
         <nav className="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-transparent transition-all duration-300">
             <div className="flex items-center gap-2">
-                <div className="relative w-12 h-12">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-gold/30">
                     <Image
                         src="/assets/logo-valkiria.png"
                         alt="Valkiria Logo"
                         fill
-                        className="object-contain"
+                        className="object-cover"
                     />
                 </div>
                 <span className="text-xl font-bold tracking-widest text-gold hidden sm:block">VALKIRIA</span>

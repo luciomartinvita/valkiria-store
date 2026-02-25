@@ -1,40 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --gold: #D4AF37;
-  --gold-muted: rgba(212, 175, 55, 0.6);
-  --deep-navy: #001F3F;
-  --marble-white: #F5F5F5;
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-muted: rgba(212, 175, 55, 0.6);
+  --color-deep-navy: #001F3F;
+  --color-marble-white: #F5F5F5;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
 }
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-family: 'Montserrat', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Playfair Display', serif;
   }
 }
 
 @layer components {
   .text-gold {
-    color: var(--gold);
+    color: var(--color-gold);
   }
-  
+
   .bg-gold {
-    background-color: var(--gold);
+    background-color: var(--color-gold);
   }
 
   .border-gold {
-    border-color: var(--gold);
+    border-color: var(--color-gold);
   }
 
   .luxury-button {
@@ -69,6 +73,7 @@
     transform: translateY(-10vh) translateX(0);
     opacity: 1;
   }
+
   to {
     transform: translateY(110vh) translateX(20px);
     opacity: 0;
