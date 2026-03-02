@@ -1,10 +1,11 @@
-import Hero from '@/components/Hero'
+import ScrollSequence from '@/components/ScrollSequence'
 import Image from 'next/image'
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <Hero />
+      {/* Hero Experience (Scroll Sequence) */}
+      <ScrollSequence />
 
       {/* Featured Collection Section Placeholder */}
       <section className="w-full py-24 bg-black px-6">
