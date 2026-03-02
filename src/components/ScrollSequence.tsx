@@ -26,8 +26,6 @@ const ScrollSequence = () => {
             setIsLoaded(true)
         }
 
-        video.addEventListener('canplaythrough', handleCanPlay)
-
         const onScroll = () => {
             if (!sectionRef.current || !video.duration) return
 
@@ -48,12 +46,20 @@ const ScrollSequence = () => {
             })
         }
 
+        const handleLoaded = () => {
+            onScroll()
+        }
+
+        video.addEventListener('canplaythrough', handleCanPlay)
+        video.addEventListener('loadedmetadata', handleLoaded)
+
         window.addEventListener('scroll', onScroll, { passive: true })
         onScroll()
 
         return () => {
             window.removeEventListener('scroll', onScroll)
             video.removeEventListener('canplaythrough', handleCanPlay)
+            video.removeEventListener('loadedmetadata', handleLoaded)
         }
     }, [])
 
@@ -91,14 +97,15 @@ const ScrollSequence = () => {
                 <div className="relative w-full h-[60vh] sm:h-[80vh] flex items-start justify-center overflow-hidden z-10 shadow-[0_30px_50px_rgba(0,0,0,0.8)] bg-black">
                     <video
                         ref={videoRef}
-                        src="/Img-video/Video-Novia-3.mp4?v=3"
+                        src="/Img-video/Pone-Corona.mp4"
                         muted
                         playsInline
                         preload="auto"
                         className="w-full h-full object-contain transition-opacity duration-1000"
                         style={{
                             filter: `contrast(1.1) brightness(${0.5 + (1 - progress) * 0.4})`,
-                            opacity: isLoaded ? 1 : 0
+                            opacity: isLoaded ? 1 : 0,
+                            transform: `scale(${1 + progress * 0.05})`,
                         }}
                     />
 
