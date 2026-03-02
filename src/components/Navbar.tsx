@@ -1,15 +1,29 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     return (
-        <nav className="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-md transition-all duration-300">
+        <nav
+            className={`fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 transition-all duration-700 ${scrolled
+                ? 'bg-black/80 backdrop-blur-md translate-y-0 opacity-100'
+                : 'bg-transparent -translate-y-full opacity-0 pointer-events-none'
+                }`}
+        >
             <div className="flex items-center gap-2">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border border-gold/30">
                     <Image
@@ -63,3 +77,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+
